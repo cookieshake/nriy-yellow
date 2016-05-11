@@ -1,4 +1,7 @@
 import random
+import jpype
+
+from ongari import Ongari
 
 
 class NriyModule:
@@ -13,7 +16,8 @@ class NriyModule:
         return rp
 
     def handle(self, rq):
-        response = "기본 응답입니다"
+        jpype.attachThreadToJVM()
+        o = Ongari()
 
         m_user_key = rq["user_key"]
         m_type = rq["type"]
@@ -24,6 +28,8 @@ class NriyModule:
 
         if m_type == "text" and m_content.split()[0] == "--선택":
             response = self.select(m_content)
+
+        response = o.tokenize(m_content)
 
         return self.makeTextMessage(response)
 
