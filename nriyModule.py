@@ -29,7 +29,8 @@ class NriyModule:
         if m_type == "text" and m_content.split()[0] == "--선택":
             response = self.select(m_content)
 
-        response = o.tokenize(m_content)
+        else:
+            response = o.tokenize(m_content)
 
         return self.makeTextMessage(response)
 
